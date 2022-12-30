@@ -1,22 +1,15 @@
 class D1_2 {
     public int solution(int[][] data, int col, int row_begin, int row_end) {
         int answer = 0;
-        int colSize = data.length;
         int rowSize = data[0].length;
 
-        for (int i = 0; i < colSize-1; i++) {
-            for (int j = i+1; j < colSize; j++) {
-                if (data[i][col-1] > data[j][col-1]) {
-                    swap(data, i, j);
-                }
-                else if (data[i][col-1] == data[j][col-1]) {
-                    if (data[i][0] < data[j][0]) {
-                        swap(data, i, j);
-                    }
-                }
+        Arrays.sort(data, (o1, o2) -> {
+            if (o1[col-1] == o2[col-1]) {
+                return Integer.compare(o2[0], o1[0]);
             }
-        }
-        q
+            return Integer.compare(o1[col-1], o2[col-1]);
+        });
+
         for (int i = row_begin-1; i < row_end; i++) {
             int sum = 0;
             for (int j = 0; j < rowSize; j++) {
@@ -26,23 +19,6 @@ class D1_2 {
         }
         return answer;
     }
-
-    public void swap(int[][] data, int i, int j) {
-        int[] tmp = data[i];
-        data[i] = data[j];
-        data[j] = tmp;
-    }
-
-//    public void printData(int[][] data) {
-//        int colSize = data.length;
-//        int rowSize = data[0].length;
-//        for (int i = 0; i < colSize; i++) {
-//            for (int j = 0; j < rowSize; j++) {
-//                System.out.print(data[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
 }
 
 /*
