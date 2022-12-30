@@ -1,25 +1,24 @@
+import java.util.HashMap;
+
 public class D2_1 {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
-        char[] arr = s.toCharArray();
+        HashMap<Character, Integer> indexMap = new HashMap<>();
 
-        for (int i = 1; i < arr.length; i++) {
-            answer[i] = -1;
-            int cnt = 1;
-            for (int j = i-1; j > -1; j--) {
-                if (arr[i] == arr[j]) {
-                    answer[i] = cnt;
-                    break;
-                }
-                cnt++;
-            }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            answer[i] = i - indexMap.getOrDefault(c, i + 1);
+            indexMap.put(c, i);
         }
         return answer;
     }
 }
 
 /*
-1. String을 배열로 바꾼다.
-2. 두번째 원소부터 앞에 같은 글자가 있는지 검사한다.
-3. 같은 글자가 있으면 해당 count를 반환한다.
+1. 왼쪽부터 오른쪽으로 문자열을 탐색한다.
+2. 맵에 해당 키의 인덱스를 불러온다.
+    - 저장된 값이 없으면 i+1을 가져온다.
+2. 맵에 키와 인덱스를 저장한다.(갱신)
+3. 위치를 계산한다.
+    - 위치 : 해당 원소의 인덱스 - 이전 원소의 인덱스
 */
