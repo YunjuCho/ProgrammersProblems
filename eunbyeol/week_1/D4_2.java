@@ -1,25 +1,22 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-class Solution8 {
+class D4_2 {
     public int solution(int k, int[] tangerine) {
         int answer = 0;
-        int sum = 0;
         Map<Integer, Integer> numberMap = new HashMap<>();
 
-        for (int i = 0; i < tangerine.length; i++) {
-            numberMap.put(tangerine[i], numberMap.getOrDefault(tangerine[i], 0) + 1);
+
+        for (int elem : tangerine) {
+            numberMap.put(elem, numberMap.getOrDefault(elem, 0) + 1);
         }
 
-        List<Map.Entry<Integer, Integer>> entryList = new LinkedList<>(numberMap.entrySet());
-        entryList.sort((o1, o2) -> numberMap.get(o2.getKey()) - numberMap.get(o1.getKey()));
+        List<Integer> keyList = new ArrayList<>(numberMap.keySet());
+        keyList.sort((o1, o2) -> numberMap.get(o2) - numberMap.get(o1));
 
-        for (Map.Entry<Integer, Integer> entry : entryList) {
-            sum += entry.getValue();
+        for (Integer key : keyList) {
+            k -= numberMap.get(key);
             answer++;
-            if (sum >= k) {
+            if (k <= 0) {
                 break;
             }
         }
